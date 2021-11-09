@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tul.ecommerce.shoppingcart.ProductException;
-import com.tul.ecommerce.shoppingcart.dto.ProductMapper;
 import com.tul.ecommerce.shoppingcart.dto.ProductRequest;
 import com.tul.ecommerce.shoppingcart.dto.ProductResponse;
 import com.tul.ecommerce.shoppingcart.entity.Product;
+import com.tul.ecommerce.shoppingcart.entity.ProductType;
+import com.tul.ecommerce.shoppingcart.exception.ProductException;
+import com.tul.ecommerce.shoppingcart.mapper.ProductMapper;
 import com.tul.ecommerce.shoppingcart.repository.ProductRepository;
 import static java.util.stream.Collectors.toList;
 
@@ -23,9 +24,16 @@ public class ProductService  {
 	private final ProductRepository productRepository;
 	private final ProductMapper productMapper;
 	
-	//crear un producto
+	//crear un producto/ actualizar
 	public ProductResponse createProduct(ProductRequest productRequest) {
-		Product product = productRepository.save(productMapper.productRequestToProduct(productRequest));		
+		Product product = productMapper.productRequestToProduct(productRequest);
+		//validación tipo de producto(simple o descuento)
+		if(productRequest.getProductType().equals(ProductType.DISCOUNT.toString())) {
+			log.info("Tipo: {}", product.getProductType());
+			product.setPrice(productRequest.getPrice()/2);
+			productRepository.save(product);
+		}
+		productRepository.save(product);
 		return productMapper.productToProductResponse(product);		
 	}
 	

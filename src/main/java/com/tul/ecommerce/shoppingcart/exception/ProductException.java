@@ -1,4 +1,4 @@
-package com.tul.ecommerce.shoppingcart;
+package com.tul.ecommerce.shoppingcart.exception;
 
 public class ProductException  extends RuntimeException{
 	/**
