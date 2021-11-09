@@ -1,2 +1,3 @@
-# carrito-compras
-Ecommerce sencillo: Módulo de carrito de compras
+# shopping-cart
+
+Módulo de carrito de compras de un Ecommerce básico
