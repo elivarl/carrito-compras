@@ -1,4 +1,4 @@
-package com.tul.ecommerce.shoppingcart;
+package com.tul.ecommerce.shoppingcart.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
