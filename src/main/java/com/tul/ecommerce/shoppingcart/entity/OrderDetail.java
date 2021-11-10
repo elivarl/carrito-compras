@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cartdetails")
+@Table(name = "orderdetails")
 public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,6 @@ public class OrderDetail {
 	@ManyToOne
 	private Product product;
 	@ManyToOne
-	private Order cart;
+	private Order order;
 
 }

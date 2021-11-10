@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCartRequest {
+public class AddProductCartRequest {
+	private Long id;
 	private Long idUser;
 	private Long idProduct;
 	private double units;

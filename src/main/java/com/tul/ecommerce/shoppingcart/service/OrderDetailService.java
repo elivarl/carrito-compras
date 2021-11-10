@@ -27,13 +27,17 @@ public class OrderDetailService {
 	}
 	
 	public List<OrderDetail> findAllByOrder(Order order){
-		return orderDetailRepository.findByCart(order);
+		return orderDetailRepository.findByOrder(order);
 	}
 	
 	public void deleteOrderDetailById(Long id) {
 		OrderDetail orderDetail= orderDetailRepository.findById(id).orElseThrow( ()-> new  CustomAllException("Order Detail id: "+id+" not found by delete"));
 		orderDetailRepository.deleteById(id);
 		
+	}
+	
+	public void deleteByCartAndProduct(Long idCart, Long idProduct) {
+		orderDetailRepository.deleteByOrderAndProduct(idCart, idProduct);
 	}
 
 }
