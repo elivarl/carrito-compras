@@ -33,6 +33,12 @@ public class ShoppingCartService {
 
 	@Transactional
 	public ProductCartResponse addProductCart(AddProductCartRequest addCartRequest) {
+		if (addCartRequest.getId() != null) {
+			// actualiza el producto
+			return updateProductCart(addCartRequest);
+		}
+
+		// añade el producto
 		Order order = new Order();
 
 		Optional<Order> orderOptionalUserAndState = orderService.findByIdUserAndByState(addCartRequest.getIdUser(),
@@ -90,10 +96,12 @@ public class ShoppingCartService {
 		Order o = orderService.createOrder(orderOptional.get());
 		return new CartResponse(total, o.getState().toString());
 	}
-	
+
 	public ProductCartResponse updateProductCart(AddProductCartRequest addProductCartRequest) {
-		Optional<Order> orderOptionalUserAndState = orderService.findByIdUserAndByState(addProductCartRequest.getIdUser(),
-				OrderState.PENDING);
+		Optional<Order> orderOptionalUserAndState = orderService
+				.findByIdUserAndByState(addProductCartRequest.getIdUser(), OrderState.PENDING);
+		OrderDetail detail = orderDetailService.findOrderDetailById(addProductCartRequest.getId());
+		log.info("detail id: {} ", detail.getId());
 
 		if (orderOptionalUserAndState.isPresent()) {
 			return savedDetail(addProductCartRequest, orderOptionalUserAndState.get());
@@ -109,7 +117,7 @@ public class ShoppingCartService {
 		product = productService.findProductByIdForDetail(addCartRequest.getIdProduct());
 
 		// creamos el detail
-		if(addCartRequest.getId()!=null) {// si es actualización del producto en el carrito
+		if (addCartRequest.getId() != null) {// si es actualización del producto en el carrito
 			detail.setId(addCartRequest.getId());
 		}
 		detail.setOrder(order);
@@ -119,7 +127,7 @@ public class ShoppingCartService {
 		detail.setTotal(detail.getUnits() * product.getPrice());
 
 		// guardamos el detail
-		return  detailMapper.orderDetailToProductCartResponse( orderDetailService.createOrderDetail(detail));
+		return detailMapper.orderDetailToProductCartResponse(orderDetailService.createOrderDetail(detail));
 
 	}
 

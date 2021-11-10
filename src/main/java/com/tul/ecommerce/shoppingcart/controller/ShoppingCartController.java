@@ -30,11 +30,7 @@ public class ShoppingCartController {
 	@PostMapping
 	public ResponseEntity<ProductCartResponse> addProductCart(
 			@RequestBody AddProductCartRequest addProductCartRequest) {
-		if (addProductCartRequest.getId() != null) {//añade el producto
-			return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addProductCart(addProductCartRequest));
-		}
-		//actualiza el producto
-		return ResponseEntity.status(HttpStatus.CREATED).body(cartService.updateProductCart(addProductCartRequest));
+		return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addProductCart(addProductCartRequest));
 
 	}
 
