@@ -8,7 +8,7 @@ import com.tul.ecommerce.shoppingcart.dto.ProductRequest;
 import com.tul.ecommerce.shoppingcart.dto.ProductResponse;
 import com.tul.ecommerce.shoppingcart.entity.Product;
 import com.tul.ecommerce.shoppingcart.entity.ProductType;
-import com.tul.ecommerce.shoppingcart.exception.ProductException;
+import com.tul.ecommerce.shoppingcart.exception.CustomAllException;
 import com.tul.ecommerce.shoppingcart.mapper.ProductMapper;
 import com.tul.ecommerce.shoppingcart.repository.ProductRepository;
 import static java.util.stream.Collectors.toList;
@@ -47,7 +47,7 @@ public class ProductService  {
 	//buscar un producto por id
 	public ProductResponse findProductById(Long id) {
 		 Product product=productRepository.findById(id).orElseThrow(
-				()-> new ProductException("Product id: "+id+" not found")
+				()-> new CustomAllException("Product id: "+id+" not found")
 				);
 		 return productMapper.productToProductResponse(product);
 	}
@@ -55,10 +55,18 @@ public class ProductService  {
 	//eliminar un producto
 	public ProductResponse deleteProductById(Long id) {
 		Product product=productRepository.findById(id).orElseThrow(
-				()-> new ProductException("Product id: "+id+" not found by delete")
+				()-> new CustomAllException("Product id: "+id+" not found by delete")
 				);		
 		productRepository.deleteById(id);
 		return productMapper.productToProductResponse(product);
 	}
+	
+	//buscar un producto por id para usar en el detail
+		public Product findProductByIdForDetail(Long id) {
+			 Product product=productRepository.findById(id).orElseThrow(
+					()-> new CustomAllException("Product id: "+id+" not found")
+					);
+			 return product;
+		}
 	
 }

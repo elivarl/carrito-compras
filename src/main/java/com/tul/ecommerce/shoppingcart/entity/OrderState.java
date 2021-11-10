@@ -1,6 +1,6 @@
 package com.tul.ecommerce.shoppingcart.entity;
 
-public enum CartState {
+public enum OrderState {
 	COMPLETE, PENDING
 
 }

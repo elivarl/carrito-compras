@@ -1,12 +1,12 @@
 package com.tul.ecommerce.shoppingcart.exception;
 
-public class ProductException  extends RuntimeException{
+public class CustomAllException  extends RuntimeException{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ProductException(String message) {
+	public CustomAllException(String message) {
 		super(message);	
 	}
 

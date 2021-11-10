@@ -2,6 +2,8 @@ package com.tul.ecommerce.shoppingcart.entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +18,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "carts")
-public class Cart {
+public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private double total;
-	private CartState state;
+	@Enumerated(value = EnumType.STRING)
+	private OrderState state;
 	private Long idUser;
 	//@OneToMany(mappedBy = "cart")
 	//private List<CartDetail> cartDetails;
